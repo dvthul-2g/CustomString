@@ -33,13 +33,13 @@ define([
 
         postCreate: function ()
         {
-            logger.debug(this.id + ".postCreate");
+            // logger.debug(this.id + ".postCreate");
             this._setupEvents();
         },
 
         update: function (obj, callback)
         {
-            logger.debug(this.id + ".update");
+            // logger.debug(this.id + ".update");
             this._contextObj = obj;
 
             if (this._contextObj)
@@ -57,7 +57,7 @@ define([
 
         _setupEvents: function ()
         {
-            logger.debug(this.id + "._setupEvents");
+            // logger.debug(this.id + "._setupEvents");
             this.connect(this.customString, "click", function (e)
             {
                 // If a microflow has been set execute the microflow on a click.
@@ -83,7 +83,7 @@ define([
 
         _updateRendering: function (callback)
         {
-            logger.debug(this.id + "._updateRendering");
+            // logger.debug(this.id + "._updateRendering");
             if (this.sourceMF !== "")
             {
                 mx.ui.action(this.sourceMF, {
@@ -128,7 +128,7 @@ define([
 
         _processSourceCallback: function (callback, returnedString)
         {
-            logger.debug(this.id + "._processSourceMFCallback");
+            // logger.debug(this.id + "._processSourceMFCallback");
             if (this.customString)
             {
                 html.set(this.customString, this.checkString(returnedString, this.renderHTML));
@@ -138,14 +138,14 @@ define([
 
         checkString: function (string, htmlBool)
         {
-            logger.debug(this.id + ".checkString");
+            // logger.debug(this.id + ".checkString");
             if (!string)
             {
                 return "";
             }
             if (string.indexOf("<script") > -1 || !htmlBool)
             {
-                logger.debug(this.id + ".checkString escape String");
+                // logger.debug(this.id + ".checkString escape String");
                 string = dom.escapeString(string);
             }
             return string;
@@ -153,7 +153,7 @@ define([
 
         _resetSubscriptions: function ()
         {
-            logger.debug(this.id + "._resetSubscriptions");
+            // logger.debug(this.id + "._resetSubscriptions");
             this.unsubscribeAll();
 
             if (this._contextObj)
@@ -170,7 +170,7 @@ define([
 
         _executeCallback: function (cb, from)
         {
-            logger.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
+            // logger.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
             if (cb && typeof cb === "function")
             {
                 cb();

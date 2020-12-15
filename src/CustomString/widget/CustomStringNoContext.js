@@ -7,19 +7,19 @@ require([
     return declare("CustomString.widget.CustomStringNoContext", [ _customStringNoContextWidget ], {
 
         postCreate: function() {
-            logger.debug(this.id + ".postCreate");
+            // logger.debug(this.id + ".postCreate");
             this._setupEvents();
         },
 
         _setupEvents: function() {
-            logger.debug(this.id + "._setupEvents");
+            // logger.debug(this.id + "._setupEvents");
             if (this.mfToExecute) {
                 this.connect(this.customString, "click", this._executeMicroflow);
             }
         },
 
         _render : function (callback) {
-            logger.debug(this.id + "._render");
+            // logger.debug(this.id + "._render");
             if(this.sourceMF !== "")
             {
                 mx.ui.action(this.sourceMF, {
@@ -59,7 +59,7 @@ require([
         },
 
         _executeMicroflow: function () {
-            logger.debug(this.id + "._executeMicroflow");
+            // logger.debug(this.id + "._executeMicroflow");
             if (this.mfToExecute) {
                 mx.ui.action(this.mfToExecute, {}, this);
             }
