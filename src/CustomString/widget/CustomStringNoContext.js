@@ -20,17 +20,42 @@ require([
 
         _render : function (callback) {
             logger.debug(this.id + "._render");
-            mx.ui.action(this.sourceMF, {
-                callback     : lang.hitch(this, this._processSourceMFCallback, callback),
-                error        : lang.hitch(this, function(error) {
-                    alert(error.description);
-                    this._executeCallback(callback, "_render error cb");
-                }),
-                onValidation : lang.hitch(this, function(validations) {
-                    alert("There were " + validations.length + " validation errors");
-                    this._executeCallback(callback, "_render onvalidation cb");
-                })
-            }, this);
+            if(this.sourceMF !== "")
+            {
+                mx.ui.action(this.sourceMF, {
+                    callback     : lang.hitch(this, this._processSourceMFCallback, callback),
+                    error        : lang.hitch(this, function(error) {
+                        alert(error.description);
+                        this._executeCallback(callback, "_render error cb");
+                    }),
+                    onValidation : lang.hitch(this, function(validations) {
+                        alert("There were " + validations.length + " validation errors");
+                        this._executeCallback(callback, "_render onvalidation cb");
+                    })
+                }, this);
+            }
+            else if (this.sourceNF !== null)
+            {
+                mx.data.callNanoflow({
+                    nanoflow: this.sourceNF,
+                    context: this.mxcontext,
+                    callback: lang.hitch(this, this._processSourceCallback, callback),
+                    error: lang.hitch(this, function (error)
+                    {
+                        alert(error.description);
+                        this._executeCallback(callback, "_updateRendering error");
+                    }),
+                    onValidation: lang.hitch(this, function (validations)
+                    {
+                        alert("There were " + validations.length + " validation errors");
+                        this._executeCallback(callback, "_updateRendering onValidation");
+                    })
+                });
+            }
+            else{
+                alert("Nanoflow and microflow are both empty");
+            }
+
         },
 
         _executeMicroflow: function () {
